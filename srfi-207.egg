@@ -1,0 +1,11 @@
+;;; srfi-207.egg -*- Scheme -*- vim: ft=scheme:
+
+((author "Daphne Preston-Kendal (external notation), John Cowan (procedure design), Wolfgang Corcoran-Mathe (implementation)")
+ (maintainer "Sergey Goldgaber")
+ (synopsis "SRFI-207: String-notated bytevectors")
+ (version "0.1")
+ (category data)
+ (dependencies srfi-1 srfi-151 r7rs)
+ (test-dependencies test)
+ (license "MIT")
+ (components (extension srfi-207)))
