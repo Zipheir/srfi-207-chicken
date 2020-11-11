@@ -5,7 +5,7 @@
  (synopsis "SRFI-207: String-notated bytevectors")
  (version "0.1")
  (category data)
- (dependencies srfi-1 srfi-151 r7rs)
+ (dependencies srfi-1 srfi-151 srfi-152 srfi-160 r7rs)
  (test-dependencies test)
  (license "MIT")
  (components (extension srfi-207)))
