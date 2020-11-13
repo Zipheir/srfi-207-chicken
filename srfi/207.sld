@@ -35,15 +35,7 @@
                   (else (vector-set! res i (f i))
                         (lp (+ i 1))))))))))
 
-  (cond-expand
-    ((library (srfi 145))
-     (import (srfi 145)))
-    (else
-     (begin
-      (define-syntax assume
-        (syntax-rules ()
-          ((_ expr . _)
-           (or expr (car 0))))))))
+  (import (srfi 145))
 
   (cond-expand
     ((library (srfi 152))
