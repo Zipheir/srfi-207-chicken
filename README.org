@@ -218,7 +218,7 @@ determines how the delimiter is used, and defaults to infix. It is an error for 
   * suffix means a suffix or terminator grammar: inserts the delimiter after every list element.
   * prefix means a prefix grammar: inserts the delimiter before every list element.
 
-    #+BEGIN_SRC scheme
+#+BEGIN_SRC scheme
 (bytestring-join '(#u8"Heart" #u8"of" #u8"Gold") #x20) ⇑ #u8"Heart of Gold"
 (bytestring-join '(#u8(#xef #xbb) #u8(#xbf)) 0 'prefix) ⇑ #u8(0 #xef #xbb 0 #xbf)
 (bytestring-join '() 0 'strict-infix) ⇑ error
