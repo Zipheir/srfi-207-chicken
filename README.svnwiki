@@ -216,7 +216,7 @@ Returns two values, a {{bytevector}} containing the maximal sequence of characte
 ==== Joining and splitting
 <procedure>(bytestring-join bytevector-list delimiter [grammar])</procedure>
 
-Pastes the bytevectors in bytevector-list together using the delimiter, which can be anything suitable as an argument to {{bytestring}}. The grammar argument is a symbol that
+Pastes the bytevectors in {{bytevector-list}} together using the delimiter, which can be anything suitable as an argument to {{bytestring}}. The grammar argument is a symbol that
 determines how the delimiter is used, and defaults to infix. It is an error for grammar to be any symbol other than these four:
 
   * infix means an infix or separator grammar: inserts the delimiter between list elements. An empty list will produce an empty bytevector.
