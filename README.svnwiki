@@ -6,9 +6,9 @@ For more information, see: [[https://srfi.schemers.org/srfi-207/|SRFI-207: Strin
 === Rationale
 Binary file formats are usually not self-describing, and if they are, the descriptive portion is itself binary, which makes it hard for human beings to interpret. To assist with this problem, it is common to have a human-readable section at the beginning of the file, or in some cases at the beginning of each distinct section of the file. For historical reasons and to avoid text encoding complications, it is usual for this human-readable section to be expressed as ASCII text.
 
-For example, ZIP files begin with the hex bytes 50 4B which are the ASCII encoding for the characters "PK", the initials of Phil Katz, the inventor of ZIP format. As another example, the GIF image format begins with 47 49 46 38 39 61, the ASCII encoding for "GIF89a", where "89a" is the format version. A third example is the PNG image format, where the file header begins 89 50 4E 47. The first byte is intentionally non-ASCII, but the next three are "PNG". Furthermore, a PNG file is divided into chunks, each of which contains a 4-byte "chunk type" code. The letters in the chunk type are mnemonics for its purpose, such as "PLTE" for a palette, "bKGD" for a default background color, and "iTXt" for descriptive text in UTF-8.
+For example, ZIP files begin with the hex bytes {{50 4B}} which are the ASCII encoding for the characters "PK", the initials of Phil Katz, the inventor of ZIP format. As another example, the GIF image format begins with {{47 49 46 38 39 61}}, the ASCII encoding for "GIF89a", where "89a" is the format version. A third example is the PNG image format, where the file header begins {{89 50 4E 47}}. The first byte is intentionally non-ASCII, but the next three are "PNG". Furthermore, a PNG file is divided into chunks, each of which contains a 4-byte "chunk type" code. The letters in the chunk type are mnemonics for its purpose, such as "PLTE" for a palette, "bKGD" for a default background color, and "iTXt" for descriptive text in UTF-8.
 
-When bytevectors contain string data of this kind, it is much more tractable for human programmers to deal with them in the form #u8"recursion" than in the form #u8(114 101 99 117 114 115 105 111 110). This is true even when non-ASCII bytes are incorporated into the bytevector: the complete 8-bit PNG file header can be written as #u8"\ x89;PNG\r\n\x1A;\n" instead of #u8(0x89 0x50 0x4E 0x47 0x0D 0x0A 0x1A 0x0A).
+When bytevectors contain string data of this kind, it is much more tractable for human programmers to deal with them in the form {{#u8"recursion"}} than in the form {{#u8(114 101 99 117 114 115 105 111 110)}}. This is true even when non-ASCII bytes are incorporated into the bytevector: the complete 8-bit PNG file header can be written as {{#u8"\ x89;PNG\r\n\x1A;\n"}} instead of {{#u8(0x89 0x50 0x4E 0x47 0x0D 0x0A 0x1A 0x0A)}}.
 
 In addition, this SRFI provides bytevectors with additional procedures that closely resemble those provided for strings. For example, bytevectors can be padded or trimmed, compared case-sensitively or case-insensitively, searched, joined, and split.
 
@@ -20,7 +20,7 @@ The basic form of a string-notated bytevector is:
 
     #u8" content "
 
-To avoid character encoding issues within string-notated bytevectors, only printable ASCII characters (that is, Unicode codepoints in the range from U+0020 to U+007E inclusive) are allowed to be used within the content of a string-notated bytevector. All other characters must be expressed through mnemonic or inline hex escapes, and " and \ must also be escaped as in normal Scheme strings.
+To avoid character encoding issues within string-notated bytevectors, only printable ASCII characters (that is, Unicode codepoints in the range from {{U+0020}} to {{U+007E}} inclusive) are allowed to be used within the content of a string-notated bytevector. All other characters must be expressed through mnemonic or inline hex escapes, and " and \ must also be escaped as in normal Scheme strings.
 ==== Within the content of a string-notated bytevector:
   * the sequence \" represents the integer 34;
   * the sequence \\ represents the integer 92;
@@ -34,16 +34,16 @@ To avoid character encoding issues within string-notated bytevectors, only print
     \r    13
     \|    124
 
-  * the sequence \x followed by zero or more 0 characters, followed by one or two hexadecimal digits, followed by ; represents the integer specified by the hexadecimal
+  * the sequence {{\x}} followed by zero or more 0 characters, followed by one or two hexadecimal digits, followed by ; represents the integer specified by the hexadecimal
     digits;
-  * the sequence \ followed by zero or more intraline whitespace characters, followed by a newline, followed by zero or more further intraline whitespace characters, is
+  * the sequence {{\}} followed by zero or more intraline whitespace characters, followed by a newline, followed by zero or more further intraline whitespace characters, is
     ignored and corresponds to no entry in the resulting bytevector;
   * any other printable ASCII character represents the character number of that character in the ASCII/Unicode code chart; and
-  * it is an error to use any other character or sequence beginning with \ within a string-notated bytevector.
+  * it is an error to use any other character or sequence beginning with {{\}} within a string-notated bytevector.
 
-Note: The \| sequence is provided so that string parsing, symbol parsing, and string-notated bytevector parsing can all use the same sequences. However, we give a complete definition of the valid lexical syntax in this SRFI rather than inheriting the native syntax of strings, so that it is clear that #u8"ι" and #u8"\xE000;" are invalid.
+Note: The {{\|}} sequence is provided so that string parsing, symbol parsing, and string-notated bytevector parsing can all use the same sequences. However, we give a complete definition of the valid lexical syntax in this SRFI rather than inheriting the native syntax of strings, so that it is clear that {{#u8"ι"}} and {{#u8"\xE000;"}} are invalid.
 
-When the Scheme reader encounters a string-notated bytevector, it produces a datum as if that bytevector had been written out in full. That is, #u8"A" is exactly equivalent to #u8(65).
+When the Scheme reader encounters a string-notated bytevector, it produces a datum as if that bytevector had been written out in full. That is, {{#u8"A"}} is exactly equivalent to {{#u8(65)}}.
 
 A Scheme implementation which supports string-notated bytevectors may not by default use this notation when any of the write family of procedures is called upon a bytevector or upon another datum containing a bytevector. A future SRFI is expected to add a configurable version of the write procedure which may enable the use of this notation in this context.
 ==== Formal syntax
@@ -70,7 +70,7 @@ Converts args into a sequence of small integers and returns them as a bytevector
 
   * If arg is a string of ASCII characters, it is converted to a sequence of codepoints which are added to the result.
 
-Otherwise, an error satisfying bytestring-error? is signaled.
+Otherwise, an error satisfying {{bytestring-error?}} is signaled.
 ==== Examples:
 <enscript highlight="scheme">
 (bytestring "lor" #\r #x65 #u8(#x6d)) ⇑ #u8"lorem"
@@ -79,7 +79,7 @@ Otherwise, an error satisfying bytestring-error? is signaled.
 (make-bytestring list)
 </enscript>
 
-If the elements of list are suitable arguments for bytestring, returns the bytevector that would be the result of applying bytestring to list. Otherwise, an error satisfying bytestring-error? is signaled.
+If the elements of list are suitable arguments for bytestring, returns the bytevector that would be the result of applying bytestring to list. Otherwise, an error satisfying {{bytestring-error?}} is signaled.
 
 <enscript highlight="scheme">
 (make-bytestring! bytevector at list)
@@ -97,7 +97,7 @@ bstring ⇑ #u8"  scheme  "
 
 <procedure>(hex-string->bytevector string)</procedure>
 
-Converts between a bytevector and a string containing pairs of hexadecimal digits. If string is not pairs of hexadecimal digits, an error satisfying bytestring-error? is raised.
+Converts between a bytevector and a string containing pairs of hexadecimal digits. If string is not pairs of hexadecimal digits, an error satisfying {{bytestring-error?}} is raised.
 
 <enscript highlight="scheme">
 (bytevector->hex-string #u8"Ford") ⇑ "467f7264"
@@ -108,7 +108,7 @@ Converts between a bytevector and a string containing pairs of hexadecimal digit
 
 <procedure>(base64->bytevector string [digits])</procedure>
 
-Converts between a bytevector and its base-64 encoding as a string. The 64 digits are represented by the characters 0-9, A-Z, a-z, and the symbols + and /. However, there are different variants of base-64 encoding which use different representations of the 62nd and 63rd digit. If the optional argument digits (a two-character string) is provided, those two characters will be used as the 62nd and 63rd digit instead. Details can be found in RFC 4648. If string is not in base-64 format, an error satisfying bytestring-error? is raised. However, characters that satisfy char-whitespace? are silently ignored.
+Converts between a bytevector and its base-64 encoding as a string. The 64 digits are represented by the characters 0-9, A-Z, a-z, and the symbols + and /. However, there are different variants of base-64 encoding which use different representations of the 62nd and 63rd digit. If the optional argument digits (a two-character string) is provided, those two characters will be used as the 62nd and 63rd digit instead. Details can be found in RFC 4648. If string is not in base-64 format, an error satisfying {{bytestring-error?}} is raised. However, characters that satisfy char-whitespace? are silently ignored.
 
 <enscript highlight="scheme">
 (bytevector->base64 #u8(1 2 3 4 5 6)) ⇑ "AQIDBAUG"
@@ -127,7 +127,7 @@ Converts all or part of a bytevector into a list of the same length containing c
 <procedure>(make-bytestring-generator arg …)</procedure>
 
 Returns a generator that when invoked will return consecutive bytes of the bytevector that bytestring would create when applied to args, but without creating any
-bytevectors. The args are validated before any bytes are generated; if they are ill-formed, an error satisfying bytestring-error? is raised.
+bytevectors. The args are validated before any bytes are generated; if they are ill-formed, an error satisfying {{bytestring-error?}} is raised.
 
 <enscript highlight="scheme">
 (generator->list (make-bytestring-generator "lorem"))
@@ -221,7 +221,7 @@ Pastes the bytevectors in bytevector-list together using the delimiter, which ca
 determines how the delimiter is used, and defaults to infix. It is an error for grammar to be any symbol other than these four:
 
   * infix means an infix or separator grammar: inserts the delimiter between list elements. An empty list will produce an empty bytevector.
-  * strict-infix means the same as infix if the list is non-empty, but will signal an error satisfying bytestring-error? if given an empty list.
+  * strict-infix means the same as infix if the list is non-empty, but will signal an error satisfying {{bytestring-error?}} if given an empty list.
   * suffix means a suffix or terminator grammar: inserts the delimiter after every list element.
   * prefix means a prefix grammar: inserts the delimiter before every list element.
 
@@ -244,7 +244,7 @@ The grammar argument is used to control how bytevector is divided. It has the sa
 ==== I/O
 <procedure>(read-textual-bytestring  prefix [ port ])</procedure>
 
-Reads a string in the external format described in this SRFI from port and return it as a bytevector. If the prefix argument is false, this procedure assumes that "#u8" has already been read from port. If port is omitted, it defaults to the value of (current-input-port). If the characters read are not in the external format, an error satisfying bytestring-error? is raised.
+Reads a string in the external format described in this SRFI from port and return it as a bytevector. If the prefix argument is false, this procedure assumes that "#u8" has already been read from port. If port is omitted, it defaults to the value of (current-input-port). If the characters read are not in the external format, an error satisfying {{bytestring-error?}} is raised.
 
 <enscript highlight="scheme">
 (call-with-port (open-input-string "#u8\"AB\\xad;\\xf0;\\x0d;CD\"")
@@ -269,7 +269,7 @@ Writes bytevector in the external format described in this SRFI to port. Bytes r
 
 <procedure>(write-binary-bytestring port arg …)</procedure>
 
-Outputs each arg to the binary output port port using the same interpretations as bytestring, but without creating any bytevectors. The args are validated before any bytes are written to port; if they are ill-formed, an error satisfying bytestring-error? is raised.
+Outputs each arg to the binary output port port using the same interpretations as bytestring, but without creating any bytevectors. The args are validated before any bytes are written to port; if they are ill-formed, an error satisfying {{bytestring-error?}} is raised.
 
 <enscript highlight="scheme">
 (call-with-port (open-output-bytevector)
