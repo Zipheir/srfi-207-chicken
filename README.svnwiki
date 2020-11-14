@@ -180,7 +180,7 @@ To compare bytevectors for equality, use the procedure bytevector=? from either 
 
 <procedure>(bytestring>=? bytevector1 bytevector2)</procedure>
 
-Returns #t if bytevector1 is less than / greater than / less than or equal to / greater than or equal to bytevector2. Comparisons are lexicographical: shorter bytevectors compare before longer ones, all elements being equal.
+Returns {{#t}} if bytevector1 is less than / greater than / less than or equal to / greater than or equal to bytevector2. Comparisons are lexicographical: shorter bytevectors compare before longer ones, all elements being equal.
 
 <enscript highlight="scheme">
 (bytestring<? #u8"Heart Of Gold" #u8"Heart of Gold") ⇑ #t
@@ -192,7 +192,7 @@ Returns #t if bytevector1 is less than / greater than / less than or equal to / 
 
 <procedure>(bytestring-index-right bytevector pred [start [end]])</procedure>
 
-Searches bytevector from start to end / from end to start for the first byte that satisfies pred, and returns the index into bytevector containing that byte. In either direction, start is inclusive and end is exclusive. If there are no such bytes, returns #f.
+Searches bytevector from start to end / from end to start for the first byte that satisfies pred, and returns the index into bytevector containing that byte. In either direction, start is inclusive and end is exclusive. If there are no such bytes, returns {{#f}}.
 
 <enscript highlight="scheme">
 (bytestring-index #u8(#x65 #x72 #x83 #x6f) (lambda (b) (> b #x7f))) ⇑ 2
@@ -281,7 +281,7 @@ Outputs each arg to the binary output port port using the same interpretations a
 ==== Exception
 <procedure>(bytestring-error? obj)</procedure>
 
-Returns #t if obj is an object signaled by any of the following procedures, in the circumstances described above:
+Returns {{#t}} if obj is an object signaled by any of the following procedures, in the circumstances described above:
 
   * bytestring
   * hex-string->bytestring
