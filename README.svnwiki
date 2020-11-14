@@ -22,9 +22,9 @@ The basic form of a string-notated {{bytevector}} is:
 
 To avoid character encoding issues within string-notated bytevectors, only printable ASCII characters (that is, Unicode codepoints in the range from {{U+0020}} to {{U+007E}} inclusive) are allowed to be used within the content of a string-notated bytevector. All other characters must be expressed through mnemonic or inline hex escapes, and " and \ must also be escaped as in normal Scheme strings.
 ==== Within the content of a string-notated bytevector:
-  * the sequence \" represents the integer 34;
-  * the sequence \\ represents the integer 92;
-  * the following mnemonic sequences represent the corresponding integers:
+* the sequence \" represents the integer 34;
+* the sequence \\ represents the integer 92;
+* the following mnemonic sequences represent the corresponding integers:
 
     Seq.  Integer
     \a    7
@@ -34,12 +34,12 @@ To avoid character encoding issues within string-notated bytevectors, only print
     \r    13
     \|    124
 
-  * the sequence {{\x}} followed by zero or more 0 characters, followed by one or two hexadecimal digits, followed by ; represents the integer specified by the hexadecimal
+* the sequence {{\x}} followed by zero or more 0 characters, followed by one or two hexadecimal digits, followed by ; represents the integer specified by the hexadecimal
     digits;
-  * the sequence {{\}} followed by zero or more intraline whitespace characters, followed by a newline, followed by zero or more further intraline whitespace characters, is
+* the sequence {{\}} followed by zero or more intraline whitespace characters, followed by a newline, followed by zero or more further intraline whitespace characters, is
     ignored and corresponds to no entry in the resulting bytevector;
-  * any other printable ASCII character represents the character number of that character in the ASCII/Unicode code chart; and
-  * it is an error to use any other character or sequence beginning with {{\}} within a string-notated bytevector.
+* any other printable ASCII character represents the character number of that character in the ASCII/Unicode code chart; and
+* it is an error to use any other character or sequence beginning with {{\}} within a string-notated bytevector.
 
 Note: The {{\|}} sequence is provided so that string parsing, symbol parsing, and string-notated bytevector parsing can all use the same sequences. However, we give a complete definition of the valid lexical syntax in this SRFI rather than inheriting the native syntax of strings, so that it is clear that {{#u8"ι"}} and {{#u8"\xE000;"}} are invalid.
 
@@ -49,8 +49,8 @@ A Scheme implementation which supports string-notated bytevectors may not by def
 ==== Formal syntax
 The formal syntax of Scheme (defined in R7RS-small 7.1) is amended as follows.
 
-  * In the definition of ⟨token⟩, after ‘| ⟨string⟩', insert ‘| ⟨string-notated bytevector⟩'.
-  * After the definition of ⟨byte⟩ is inserted:
+* In the definition of ⟨token⟩, after ‘| ⟨string⟩', insert ‘| ⟨string-notated bytevector⟩'.
+* After the definition of ⟨byte⟩ is inserted:
 
  ⟨string-notated bytevector⟩ → #u8" ⟨string-notated bytevector element⟩* "
  ⟨string-notated bytevector element⟩ → ⟨any printable ASCII character other than " or \⟩
@@ -62,13 +62,10 @@ The formal syntax of Scheme (defined in R7RS-small 7.1) is amended as follows.
 
 Converts args into a sequence of small integers and returns them as a {{bytevector}} as follows:
 
-  * If arg is an exact integer in the range 0-255 inclusive, it is added to the result.
-
-  * If arg is an ASCII character (that is, its codepoint is in the range 0-127 inclusive), it is converted to its codepoint and added to the result.
-
-  * If arg is a {{bytevector}}, its elements are added to the result.
-
-  * If arg is a string of ASCII characters, it is converted to a sequence of codepoints which are added to the result.
+* If arg is an exact integer in the range 0-255 inclusive, it is added to the result.
+* If arg is an ASCII character (that is, its codepoint is in the range 0-127 inclusive), it is converted to its codepoint and added to the result.
+* If arg is a {{bytevector}}, its elements are added to the result.
+* If arg is a string of ASCII characters, it is converted to a sequence of codepoints which are added to the result.
 
 Otherwise, an error satisfying {{bytestring-error?}} is signaled.
 ==== Examples:
@@ -218,10 +215,10 @@ Returns two values, a {{bytevector}} containing the maximal sequence of characte
 
 Pastes the bytevectors in {{bytevector-list}} together using the delimiter, which can be anything suitable as an argument to {{bytestring}}. The grammar argument is a symbol that determines how the delimiter is used, and defaults to infix. It is an error for grammar to be any symbol other than these four:
 
-  * infix means an infix or separator grammar: inserts the delimiter between list elements. An empty list will produce an empty bytevector.
-  * strict-infix means the same as infix if the list is non-empty, but will signal an error satisfying {{bytestring-error?}} if given an empty list.
-  * suffix means a suffix or terminator grammar: inserts the delimiter after every list element.
-  * prefix means a prefix grammar: inserts the delimiter before every list element.
+* infix means an infix or separator grammar: inserts the delimiter between list elements. An empty list will produce an empty bytevector.
+* strict-infix means the same as infix if the list is non-empty, but will signal an error satisfying {{bytestring-error?}} if given an empty list.
+* suffix means a suffix or terminator grammar: inserts the delimiter after every list element.
+* prefix means a prefix grammar: inserts the delimiter before every list element.
 
 <enscript highlight="scheme">
 (bytestring-join '(#u8"Heart" #u8"of" #u8"Gold") #x20) ⇒ #u8"Heart of Gold"
@@ -281,15 +278,15 @@ Outputs each arg to the binary output port port using the same interpretations a
 
 Returns {{#t}} if obj is an object signaled by any of the following procedures, in the circumstances described above:
 
-  * {{bytestring}}
-  * {{hex-string->bytestring}}
-  * {{base64->bytestring}}
-  * {{make-bytestring}}
-  * {{make-bytestring!}}
-  * {{bytestring-join}}
-  * {{read-textual-bytestring}}
-  * {{write-binary-bytestring}}
-  * {{make-bytestring-generator}}
+* {{bytestring}}
+* {{hex-string->bytestring}}
+* {{base64->bytestring}}
+* {{make-bytestring}}
+* {{make-bytestring!}}
+* {{bytestring-join}}
+* {{read-textual-bytestring}}
+* {{write-binary-bytestring}}
+* {{make-bytestring-generator}}
 === Implementation
 There is a sample implementation of the procedures, but not the notation, in the repository of this SRFI.
 === Acknowledgements
