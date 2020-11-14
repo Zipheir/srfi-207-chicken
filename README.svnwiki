@@ -162,7 +162,7 @@ Returns a newly allocated {{bytevector}} with the contents of {{bytevector}}, ex
 
 <procedure>(bytestring-replace bytevector1 bytevector2 start1 end1 [start2 end2])</procedure>
 
-Returns a newly allocated {{bytevector}} with the contents of bytevector1, except that the bytes indexed by start1 and end1 are not included but are replaced by the bytes of bytevector2 indexed by start2 and end2.
+Returns a newly allocated {{bytevector}} with the contents of bytevector1, except that the bytes indexed by {{start1}} and {{end1}} are not included but are replaced by the bytes of bytevector2 indexed by {{start2}} and {{end2}}.
 
 <enscript highlight="scheme">
 (bytestring-replace #u8"Vogon torture" #u8"poetry" 6 13)
