@@ -108,7 +108,7 @@ Converts between a {{bytevector}} and a string containing pairs of hexadecimal d
 
 <procedure>(base64->bytevector string [digits])</procedure>
 
-Converts between a {{bytevector}} and its base-64 encoding as a string. The 64 digits are represented by the characters 0-9, A-Z, a-z, and the symbols + and /. However, there are different variants of base-64 encoding which use different representations of the 62nd and 63rd digit. If the optional argument digits (a two-character string) is provided, those two characters will be used as the 62nd and 63rd digit instead. Details can be found in RFC 4648. If string is not in base-64 format, an error satisfying {{bytestring-error?}} is raised. However, characters that satisfy {{char-whitespace?}} are silently ignored.
+Converts between a {{bytevector}} and its base-64 encoding as a string. The 64 digits are represented by the characters {{0-9, A-Z, a-z}}, and the symbols {{+}} and {{/}}. However, there are different variants of base-64 encoding which use different representations of the 62nd and 63rd digit. If the optional argument digits (a two-character string) is provided, those two characters will be used as the 62nd and 63rd digit instead. Details can be found in RFC 4648. If string is not in base-64 format, an error satisfying {{bytestring-error?}} is raised. However, characters that satisfy {{char-whitespace?}} are silently ignored.
 
 <enscript highlight="scheme">
 (bytevector->base64 #u8(1 2 3 4 5 6)) ⇒ "AQIDBAUG"
