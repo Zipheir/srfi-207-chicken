@@ -22,7 +22,6 @@ The basic form of a string-notated bytevector is:
 
 To avoid character encoding issues within string-notated bytevectors, only printable ASCII characters (that is, Unicode codepoints in the range from U+0020 to U+007E inclusive) are allowed to be used within the content of a string-notated bytevector. All other characters must be expressed through mnemonic or inline hex escapes, and " and \ must also be escaped as in normal Scheme strings.
 ==== Within the content of a string-notated bytevector:
-
   * the sequence \" represents the integer 34;
   * the sequence \\ represents the integer 92;
   * the following mnemonic sequences represent the corresponding integers:
@@ -53,13 +52,11 @@ The formal syntax of Scheme (defined in R7RS-small 7.1) is amended as follows.
   * In the definition of ⟨token⟩, after ‘| ⟨string⟩', insert ‘| ⟨string-notated bytevector⟩'.
   * After the definition of ⟨byte⟩ is inserted:
 
-#+BEGIN_EXAMPLE
-⟨string-notated bytevector⟩ → #u8" ⟨string-notated bytevector element⟩* "
-⟨string-notated bytevector element⟩ → ⟨any printable ASCII character other than " or \⟩
-| ⟨mnemonic escape⟩ | \" | \\
-| \⟨intraline whitespace⟩*⟨line ending⟩⟨intraline whitespace⟩*
-| ⟨inline hex escape⟩
-#+END_EXAMPLE
+ ⟨string-notated bytevector⟩ → #u8" ⟨string-notated bytevector element⟩* "
+ ⟨string-notated bytevector element⟩ → ⟨any printable ASCII character other than " or \⟩
+ | ⟨mnemonic escape⟩ | \" | \\
+ | \⟨intraline whitespace⟩*⟨line ending⟩⟨intraline whitespace⟩*
+ | ⟨inline hex escape⟩
 ==== Constructors
 (bytestring arg …)
 
