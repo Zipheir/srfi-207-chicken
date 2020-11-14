@@ -126,8 +126,7 @@ Converts all or part of a {{bytevector}} into a list of the same length containi
 
 <procedure>(make-bytestring-generator arg …)</procedure>
 
-Returns a generator that when invoked will return consecutive bytes of the {{bytevector}} that {{bytestring}} would create when applied to args, but without creating any
-bytevectors. The args are validated before any bytes are generated; if they are ill-formed, an error satisfying {{bytestring-error?}} is raised.
+Returns a generator that when invoked will return consecutive bytes of the {{bytevector}} that {{bytestring}} would create when applied to args, but without creating any bytevectors. The args are validated before any bytes are generated; if they are ill-formed, an error satisfying {{bytestring-error?}} is raised.
 
 <enscript highlight="scheme">
 (generator->list (make-bytestring-generator "lorem"))
@@ -139,7 +138,7 @@ bytevectors. The args are validated before any bytes are generated; if they are 
 
 <procedure>(bytestring-pad-right bytevector len char-or-u8)</procedure>
 
-Returns a newly allocated {{bytevector}} with the contents of {{bytevector}} plus sufficient additional bytes at the beginning/end containing char-or-u8 (which can be either an ASCII character or an exact integer in the range 0-255) such that the length of the result is at least len.
+Returns a newly allocated {{bytevector}} with the contents of {{bytevector}} plus sufficient additional bytes at the beginning/end containing {{char-or-u8}} (which can be either an ASCII character or an exact integer in the range 0-255) such that the length of the result is at least len.
 
 <enscript highlight="scheme">
 (bytestring-pad #u8"Zaphod" 10 #\_) ⇒ #u8"____Zaphod"
