@@ -58,7 +58,7 @@ The formal syntax of Scheme (defined in R7RS-small 7.1) is amended as follows.
  | \⟨intraline whitespace⟩*⟨line ending⟩⟨intraline whitespace⟩*
  | ⟨inline hex escape⟩
 ==== Constructors
-(bytestring arg …)
+<procedure>(bytestring arg …)</procedure>
 
 Converts args into a sequence of small integers and returns them as a bytevector as follows:
 
@@ -93,8 +93,9 @@ If the elements of list are suitable arguments for bytestring, writes the bytes 
 bstring ⇑ #u8"  scheme  "
 </enscript>
 ==== Conversion
-(bytevector->hex-string bytevector)
-(hex-string->bytevector string)
+<procedure>(bytevector->hex-string bytevector)</procedure>
+
+<procedure>(hex-string->bytevector string)</procedure>
 
 Converts between a bytevector and a string containing pairs of hexadecimal digits. If string is not pairs of hexadecimal digits, an error satisfying bytestring-error? is raised.
 
@@ -103,8 +104,9 @@ Converts between a bytevector and a string containing pairs of hexadecimal digit
 (hex-string->bytevector "5a6170686f64") ⇑ #u8"Zaphod"
 </enscript>
 
-(bytevector->base64 bytevector [digits])
-(base64->bytevector string [digits])
+<procedure>(bytevector->base64 bytevector [digits])</procedure>
+
+<procedure>(base64->bytevector string [digits])</procedure>
 
 Converts between a bytevector and its base-64 encoding as a string. The 64 digits are represented by the characters 0-9, A-Z, a-z, and the symbols + and /. However, there are different variants of base-64 encoding which use different representations of the 62nd and 63rd digit. If the optional argument digits (a two-character string) is provided, those two characters will be used as the 62nd and 63rd digit instead. Details can be found in RFC 4648. If string is not in base-64 format, an error satisfying bytestring-error? is raised. However, characters that satisfy char-whitespace? are silently ignored.
 
@@ -114,7 +116,7 @@ Converts between a bytevector and its base-64 encoding as a string. The 64 digit
 (base64->bytevector "+/     /+") ⇑ #u8(#xfb #xff #xfe)
 </enscript>
 
-(bytestring->list bytevector [ start [ end ] ])
+<procedure>(bytestring->list bytevector [ start [ end ] ])</procedure>
 
 Converts all or part of a bytevector into a list of the same length containing characters for elements in the range 32 to 127 and exact integers for all other elements.
 
@@ -122,7 +124,7 @@ Converts all or part of a bytevector into a list of the same length containing c
 (bytestring->list #u8(#x41 #x42 1 2) 1 3) ⇑ (#\B 1)
 </enscript>
 
-(make-bytestring-generator arg …)
+<procedure>(make-bytestring-generator arg …)</procedure>
 
 Returns a generator that when invoked will return consecutive bytes of the bytevector that bytestring would create when applied to args, but without creating any
 bytevectors. The args are validated before any bytes are generated; if they are ill-formed, an error satisfying bytestring-error? is raised.
@@ -133,8 +135,9 @@ bytevectors. The args are validated before any bytes are generated; if they are 
 </enscript>
 ==== Selection
 
-(bytestring-pad bytevector len char-or-u8)
-(bytestring-pad-right bytevector len char-or-u8)
+<procedure>(bytestring-pad bytevector len char-or-u8)</procedure>
+
+<procedure>(bytestring-pad-right bytevector len char-or-u8)</procedure>
 
 Returns a newly allocated bytevector with the contents of bytevector plus sufficient additional bytes at the beginning/end containing char-or-u8 (which can be either an ASCII character or an exact integer in the range 0-255) such that the length of the result is at least len.
 
@@ -143,9 +146,11 @@ Returns a newly allocated bytevector with the contents of bytevector plus suffic
 (bytestring-pad-right #u8(#x80 #x7f) 8 0) ⇑ #u8(#x80 #x7f 0 0 0 0 0 0)
 </enscript>
 
-(bytestring-trim bytevector pred)
-(bytestring-trim-right bytevector pred)
-(bytestring-trim-both bytevector pred)
+<procedure>(bytestring-trim bytevector pred)</procedure>
+
+<procedure>(bytestring-trim-right bytevector pred)</procedure>
+
+<procedure>(bytestring-trim-both bytevector pred)</procedure>
 
 Returns a newly allocated bytevector with the contents of bytevector, except that consecutive bytes at the beginning / the end / both the beginning and the end that satisfy pred are not included.
 
@@ -156,7 +161,7 @@ Returns a newly allocated bytevector with the contents of bytevector, except tha
 </enscript>
 ==== Replacement
 
-(bytestring-replace bytevector1 bytevector2 start1 end1 [start2 end2])
+<procedure>(bytestring-replace bytevector1 bytevector2 start1 end1 [start2 end2])</procedure>
 
 Returns a newly allocated bytevector with the contents of bytevector1, except that the bytes indexed by start1 and end1 are not included but are replaced by the bytes of bytevector2 indexed by start2 and end2.
 
@@ -167,10 +172,13 @@ Returns a newly allocated bytevector with the contents of bytevector1, except th
 ==== Comparison
 To compare bytevectors for equality, use the procedure bytevector=? from either the R6RS library (rnrs bytevectors) or the equivalent R7RS library (scheme bytevector).
 
-(bytestring<? bytevector1 bytevector2)
-(bytestring>? bytevector1 bytevector2)
-(bytestring<=? bytevector1 bytevector2)
-(bytestring>=? bytevector1 bytevector2)
+<procedure>(bytestring<? bytevector1 bytevector2)</procedure>
+
+<procedure>(bytestring>? bytevector1 bytevector2)</procedure>
+
+<procedure>(bytestring<=? bytevector1 bytevector2)</procedure>
+
+<procedure>(bytestring>=? bytevector1 bytevector2)</procedure>
 
 Returns #t if bytevector1 is less than / greater than / less than or equal to / greater than or equal to bytevector2. Comparisons are lexicographical: shorter bytevectors compare before longer ones, all elements being equal.
 
@@ -180,8 +188,9 @@ Returns #t if bytevector1 is less than / greater than / less than or equal to / 
 (bytestring>? #u8(1 2 3) #u8(1 2)) ⇑ #t
 </enscript>
 ==== Searching
-(bytestring-index bytevector pred [start [end]])
-(bytestring-index-right bytevector pred [start [end]])
+<procedure>(bytestring-index bytevector pred [start [end]])</procedure>
+
+<procedure>(bytestring-index-right bytevector pred [start [end]])</procedure>
 
 Searches bytevector from start to end / from end to start for the first byte that satisfies pred, and returns the index into bytevector containing that byte. In either direction, start is inclusive and end is exclusive. If there are no such bytes, returns #f.
 
@@ -191,8 +200,9 @@ Searches bytevector from start to end / from end to start for the first byte tha
 (bytestring-index-right #u8"Zaphod" odd?) ⇑ 4
 </enscript>
 
-(bytestring-break bytevector pred)
-(bytestring-span bytevector pred)
+<procedure>(bytestring-break bytevector pred)</procedure>
+
+<procedure>(bytestring-span bytevector pred)</procedure>
 
 Returns two values, a bytevector containing the maximal sequence of characters (searching from the beginning of bytevector to the end) that do not satisfy / do satisfy pred, and another bytevector containing the remaining characters.
 
@@ -205,7 +215,7 @@ Returns two values, a bytevector containing the maximal sequence of characters (
     #u8"efg"
 </enscript>
 ==== Joining and splitting
-(bytestring-join bytevector-list delimiter [grammar])
+<procedure>(bytestring-join bytevector-list delimiter [grammar])</procedure>
 
 Pastes the bytevectors in bytevector-list together using the delimiter, which can be anything suitable as an argument to bytestring. The grammar argument is a symbol that
 determines how the delimiter is used, and defaults to infix. It is an error for grammar to be any symbol other than these four:
@@ -221,7 +231,7 @@ determines how the delimiter is used, and defaults to infix. It is an error for 
 (bytestring-join '() 0 'strict-infix) ⇑ error
 </enscript>
 
-(bytestring-split bytevector delimiter [grammar])
+<procedure>(bytestring-split bytevector delimiter [grammar])</procedure>
 
 Divides the elements of bytevector and returns a list of newly allocated bytevectors using the delimiter (an ASCII character or exact integer in the range 0-255 inclusive). Delimiter bytes are not included in the result bytevectors.
 
@@ -232,7 +242,7 @@ The grammar argument is used to control how bytevector is divided. It has the sa
 (bytestring-split #u8(1 0 2 0) 0 'suffix) ⇑ (#u8(1) #u8(2))
 </enscript>
 ==== I/O
-(read-textual-bytestring  prefix [ port ])
+<procedure>(read-textual-bytestring  prefix [ port ])</procedure>
 
 Reads a string in the external format described in this SRFI from port and return it as a bytevector. If the prefix argument is false, this procedure assumes that "#u8" has already been read from port. If port is omitted, it defaults to the value of (current-input-port). If the characters read are not in the external format, an error satisfying bytestring-error? is raised.
 
@@ -243,7 +253,7 @@ Reads a string in the external format described in this SRFI from port and retur
   ⇑ #u8(#x41 #x42 #xad #xf0 #x0d #x43 #x44)
 </enscript>
 
-(write-textual-bytestring bytevector [ port ])
+<procedure>(write-textual-bytestring bytevector [ port ])</procedure>
 
 Writes bytevector in the external format described in this SRFI to port. Bytes representing non-graphical ASCII characters are unencoded: all other bytes are encoded with a single letter if possible, otherwise with a \x escape. If port is omitted, it defaults to the value of (current-output-port).
 
@@ -257,7 +267,7 @@ Writes bytevector in the external format described in this SRFI to port. Bytes r
   ⇑ "#u8\"\\tArthur\\n\""
 </enscript>
 
-(write-binary-bytestring port arg …)
+<procedure>(write-binary-bytestring port arg …)</procedure>
 
 Outputs each arg to the binary output port port using the same interpretations as bytestring, but without creating any bytevectors. The args are validated before any bytes are written to port; if they are ill-formed, an error satisfying bytestring-error? is raised.
 
@@ -269,7 +279,7 @@ Outputs each arg to the binary output port port using the same interpretations a
   ⇑ #u8"Zaphod"
 </enscript>
 ==== Exception
-(bytestring-error? obj)
+<procedure>(bytestring-error? obj)</procedure>
 
 Returns #t if obj is an object signaled by any of the following procedures, in the circumstances described above:
 
