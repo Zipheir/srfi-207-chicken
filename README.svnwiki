@@ -244,7 +244,7 @@ The grammar argument is used to control how {{bytevector}} is divided. It has th
 ==== I/O
 <procedure>(read-textual-bytestring  prefix [ port ])</procedure>
 
-Reads a string in the external format described in this SRFI from port and return it as a bytevector. If the prefix argument is false, this procedure assumes that "#u8" has already been read from port. If port is omitted, it defaults to the value of (current-input-port). If the characters read are not in the external format, an error satisfying {{bytestring-error?}} is raised.
+Reads a string in the external format described in this SRFI from port and return it as a bytevector. If the prefix argument is false, this procedure assumes that {{"#u8"}} has already been read from port. If port is omitted, it defaults to the value of {{(current-input-port)}}. If the characters read are not in the external format, an error satisfying {{bytestring-error?}} is raised.
 
 <enscript highlight="scheme">
 (call-with-port (open-input-string "#u8\"AB\\xad;\\xf0;\\x0d;CD\"")
@@ -255,7 +255,7 @@ Reads a string in the external format described in this SRFI from port and retur
 
 <procedure>(write-textual-bytestring bytevector [ port ])</procedure>
 
-Writes {{bytevector}} in the external format described in this SRFI to port. Bytes representing non-graphical ASCII characters are unencoded: all other bytes are encoded with a single letter if possible, otherwise with a \x escape. If port is omitted, it defaults to the value of (current-output-port).
+Writes {{bytevector}} in the external format described in this SRFI to port. Bytes representing non-graphical ASCII characters are unencoded: all other bytes are encoded with a single letter if possible, otherwise with a {{\x}} escape. If port is omitted, it defaults to the value of {{(current-output-port)}}.
 
 <enscript highlight="scheme">
 (call-with-port (open-output-string)
