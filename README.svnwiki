@@ -289,6 +289,8 @@ Returns {{#t}} if obj is an object signaled by any of the following procedures, 
 * {{make-bytestring-generator}}
 === Implementation
 There is a sample implementation of the procedures, but not the notation, in the repository of this SRFI.
+
+Note: The String-notated bytevector read syntax is not currently supported in Chicken Scheme.
 === Acknowledgements
 Daphne Preston-Kendal devised the string notation for bytevectors; John Cowan, the procedure library; Wolfgang Corcoran-Mathe, the sample implementation of the procedures.
 
