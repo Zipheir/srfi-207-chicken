@@ -1,7 +1,7 @@
 ((author "Daphne Preston-Kendal, John Cowan, & Wolfgang Corcoran-Mathe")
  (maintainer "Wolfgang Corcoran-Mathe")
  (synopsis "SRFI-207: String-notated bytevectors")
- (version "0.1")
+ (version "0.2")
  (category data)
  (dependencies srfi-1 srfi-145 srfi-151 srfi-152 srfi-160 r7rs)
  (test-dependencies srfi-1 srfi-4 srfi-158 test)
